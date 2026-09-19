@@ -1,7 +1,13 @@
-This repo stores the project accomplished following the university course of **Financial Risk Management** held by Prof. Cosimo Munari & Prof. Andrea Mazzon, at the University of Verona, within the Master's Degree in Quantitative Finance.
+Quantitative Risk Engine: Multi-Asset Portfolio VaR & Expected Shortfall Analytics
 
-The original instructions can be found in Lecture 11 Java Project.pdf.
+A quantitative risk measurement and backtesting framework built in R for multi-asset portfolios.
 
-SUMMARY: Java implementation of an n-asset portfolio risk management system computing Value at Risk (VaR, α=1%) and Expected Shortfall (ES, β=2.5%) via three estimation methods — Historical (non-parametric empirical quantile), Normal parametric (Gaussian fit), and Monte Carlo with s simulations per rolling window (user-configurable in Tests.java), in both independent and correlated (Cholesky decomposition) variants. The framework is generalized to any number of assets: portfolio weights are derived from an arbitrary budget vector (BUDGETS), and the full Historical / Normal / Independent MC pipeline scales to n assets without modification. The correlated MC variant is the only component restricted to two assets, relying on a closed-form 2×2 Cholesky factorization. The demo portfolio uses SPY (S&P 500 ETF) and GLD (Gold ETF), observed over 2019–2025 with a 250-day rolling window, with results expressed both as percentage of portfolio value and in USD. The project also includes Basel III Traffic Light backtesting evaluated annually (2020–2025) and on a rolling 250-day basis. Key findings: the Historical method is the most conservative and never enters the RED zone; the Normal and Correlated MC methods underestimate fat-tail risk, producing RED violations in 2022 and 2025; the Independent MC model — which ignores the negative SPY–GLD correlation — yields the worst backtesting performance, confirming the diversification benefit of including gold as a hedge. The codebase follows the Strategy, Facade, and Template Method design patterns.
+Key Features & Implementations
+- Financial Data Pipeline: Built an automated ETL pipeline using R (`quantmod`, `openxlsx`) to extract multi-year financial time series from Yahoo Finance and feed clean market data into risk models.
+- Rolling-Window Backtesting: Implemented an iterative rolling-window engine (n = 250 daily samples over a 7-year time horizon) to dynamically compute daily risk metrics across 1,500+ trading days.
+- Multi-Model Risk Quantification:** Developed modular risk measurement methods to calculate Value at Risk (VaR) and Expected Shortfall (ES) using Historical Simulation, Parametric Normal, and Monte Carlo Simulation (100,000 iterations under joint normal distribution assumptions).
 
-*Place the historical price files in src/main/resources/ as Asset1.xlsx, Asset2.xlsx, etc. Files must be in the standard Yahoo Finance download format (.xlsx): the Date column in the first position and an Adj Close (or Close) column containing the adjusted closing prices. One file per asset, one row per trading day.
+ Tech Stack
+- Language: R, Java
+- Packages: `quantmod`, `openxlsx`
+- Environment: RStudio, Eclipse
